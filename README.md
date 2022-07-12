@@ -1,15 +1,5 @@
-# Basic Sample Hardhat Project
+# Worm Bridge Solidity Smart Contract
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
 
-Try running some of the following tasks:
+Easy transfer between the chains! The EVM compatible blockchain bridge. Transfer your tokens between chains in two clicks. Create your own bridges and expand a space for the projects.
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
