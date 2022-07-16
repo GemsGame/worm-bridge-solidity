@@ -12,9 +12,6 @@ contract TokenBase is ERC20 {
     factory = _factory;
   }
   
-  event TokensBurn(address owner, uint amount, uint timestamp);
-
-
   modifier defender {
     if (msg.sender != factory && msg.sender != bridge) {
       _;
@@ -29,9 +26,7 @@ contract TokenBase is ERC20 {
     _mint(to, amount);
   }
 
-  function burn(uint amount) external { 
-    _burn(msg.sender, amount);
-
-    emit TokensBurn(msg.sender, amount, block.timestamp);
+  function burn(address owner, uint amount) external defender { 
+    _burn(owner, amount);
   }
 }
