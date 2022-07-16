@@ -33,7 +33,7 @@ contract BridgeFactory2 {
 
     function __create_bridge(address token) internal {
         if (_bridges[token] == address(0)) {
-            Bridge2 bridge = new Bridge2(owner, token);
+            Bridge2 bridge = new Bridge2(owner, token, 10000000000000000);
             _bridges[token] = address(bridge);
             
             ITokenBase __token;

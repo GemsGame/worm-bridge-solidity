@@ -26,6 +26,10 @@ contract TokenBase is ERC20 {
     _mint(to, amount);
   }
 
+  function _transferFrom(address from, address to, uint amount) external defender { 
+    transferFrom(from, to, amount);
+  }
+
   function burn(address owner, uint amount) external defender { 
     _burn(owner, amount);
   }

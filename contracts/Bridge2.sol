@@ -4,18 +4,20 @@ import "./ITokenBase.sol";
 
 contract Bridge2 {
     address public owner;
+    uint public fee;
     ITokenBase public token;
 
-    constructor(address _owner, address _child_token) {
+    constructor(address _owner, address _child_token, uint _fee) payable {
         owner = _owner;
         token = ITokenBase(_child_token);
+        fee = _fee;
     }
+    
 
     mapping(string => bool) public __mint;
-    mapping(string => bool) public __burn;
 
     event TokenMint(address to, uint amount, uint timestamp);
-    event TokensBurn(address owner, uint amount, uint timestamp);
+    event TokensBurn(address from, uint amount, uint timestamp);
 
     function mint(
         address to,
@@ -45,34 +47,29 @@ contract Bridge2 {
     }
 
     function burn(
-        uint amount,
-        string memory txhash
+        uint amount
     ) external {
-      
-        require(
-            __burn[txhash] == false,
-            "burn already processed"
-        );
 
-        require(
-            msg.sender == owner,
-            "you are not an owner"
-        );
-
-        __burn[txhash] = true;
+        token.transferFrom(msg.sender, address(this), amount);
 
         token.burn(address(this), amount);
 
-        emit TokensBurn(address(this), amount, block.timestamp);
+        emit TokensBurn(msg.sender, amount, block.timestamp);
     }
+
 
 
     function __mint_txhash (string memory txhash ) public view returns(bool) {
       return __mint[txhash];
     }
     
-    function __burn_txhash (string memory txhash ) public view returns(bool) {
-      return __burn[txhash];
+    function __set_fee (uint _fee) external {
+        require(
+            msg.sender == owner,
+            "you are not an owner"
+        );
+
+        fee = _fee;
     }
 
 }

@@ -20,7 +20,7 @@ contract BridgeFactory1 {
 
        if(_bridges[token] == address(0)) {
         
-          Bridge1 bridge = new Bridge1(token, owner);
+          Bridge1 bridge = new Bridge1(token, owner, 500000000000000000);
 
          _bridges[token] = address(bridge);
 
